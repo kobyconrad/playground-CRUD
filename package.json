@@ -1,0 +1,14 @@
+{
+  "name": "playground-crud",
+  "version": "1.0.0",
+  "description": "a playground for learning CRUD",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "koby conrad",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
