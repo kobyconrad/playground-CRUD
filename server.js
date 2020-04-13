@@ -73,5 +73,17 @@ MongoClient.connect(
         })
         .catch((error) => console.error(error));
     });
+
+    app.delete("/quotes", (req, res) => {
+      quotesCollection
+        .deleteOne({ name: "Darth Vadar" })
+        .then((result) => {
+          if (result.deletedCount === 0) {
+            return res.json("No quote to delete");
+          }
+          res.json(`Deleted Darth Vadar's Quote`);
+        })
+        .catch((error) => console.error(error));
+    });
   })
   .catch((error) => console.error(error));

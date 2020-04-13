@@ -1,4 +1,6 @@
 const update = document.querySelector("#update-button");
+const deleteButton = document.querySelector("#delete-button");
+const messageDiv = document.querySelector("#message");
 
 update.addEventListener("click", (_) => {
   // send PUT request here
@@ -16,4 +18,25 @@ update.addEventListener("click", (_) => {
       if (res.ok) return res.json();
     })
     .then((response) => window.location.reload(true));
+});
+
+deleteButton.addEventListener("click", (_) => {
+  fetch("/quotes", {
+    method: "delete",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: "Darth Vadar",
+    }),
+  })
+    .then((res) => {
+      console.log("response");
+      if (res.ok) return res.json();
+    })
+    .then((res) => {
+      if (res === "No quote to delete") {
+        messageDiv.textContent = "No Darth Vadar quote to delete";
+      } else {
+        window.location.reload(true);
+      }
+    });
 });
