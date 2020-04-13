@@ -35,10 +35,9 @@ MongoClient.connect(
         .toArray()
         .then((results) => {
           console.log(results);
+          res.render("index.ejs", { quotes: results });
         })
         .catch((error) => console.error(error));
-
-      res.render("index.ejs", {});
     });
 
     app.post("/quotes", (req, res) => {
