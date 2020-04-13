@@ -6,6 +6,7 @@ const app = express();
 app.listen(3000, () => {
   console.log("may the node be with you");
 });
+app.set("view-engine", "ejs");
 
 // This is my Mongo client which is going to wrap all of my express CRUD functionality
 MongoClient.connect(
@@ -25,28 +26,20 @@ MongoClient.connect(
 
     // These are my handlers
     app.get("/", (req, res) => {
-      console.log(__dirname);
-      res.sendFile(__dirname + "/index.html");
-      const cursor = db
-        .collection("quotes")
+      //serves up the index page on load /
+      // res.sendFile(__dirname + "/index.html");
+
+      //gets the quotes from database on load /
+      db.collection("quotes")
         .find()
         .toArray()
         .then((results) => {
           console.log(results);
         })
         .catch((error) => console.error(error));
-    });
 
-    // app.get("/", (req, res) => {
-    //   const cursor = db
-    //     .collection("quotes")
-    //     .find()
-    //     .toArray()
-    //     .then((results) => {
-    //       console.log(results);
-    //     })
-    //     .catch((error) => console.error(error));
-    // });
+      res.render("index.ejs", {});
+    });
 
     app.post("/quotes", (req, res) => {
       //   console.log("these are not the droids you are looking for");
