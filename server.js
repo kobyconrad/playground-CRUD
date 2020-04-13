@@ -8,6 +8,8 @@ app.listen(3000, () => {
 });
 app.set("view-engine", "ejs");
 
+app.use(express.static("public"));
+
 // This is my Mongo client which is going to wrap all of my express CRUD functionality
 MongoClient.connect(
   "mongodb+srv://koby:grassphone2@cluster0-q6mwy.mongodb.net/test?retryWrites=true&w=majority",
@@ -23,6 +25,8 @@ MongoClient.connect(
 
     // This is my body parser to read form data
     app.use(bodyParser.urlencoded({ extended: true }));
+    // This lets my server accept JSON data for PUT requests
+    app.use(bodyParser.json());
 
     // These are my handlers
     app.get("/", (req, res) => {
@@ -47,6 +51,10 @@ MongoClient.connect(
         .insertOne(req.body)
         .then((result) => res.redirect("/"))
         .catch((error) => console.error(error));
+    });
+
+    app.put("/quotes", (req, res) => {
+      console.log(req.body);
     });
   })
   .catch((error) => console.error(error));
